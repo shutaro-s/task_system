@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <script src="/js/script.js"></script> -->
+    <title>初期画面</title>
+</head>
+<body>
+    <h2><a href="/new/student">学生新規作成</a></h2>
+    <h2><a href="/new/class">授業登録</a></h2>
+    <h2><a href="/new/task">課題追加</a></h2>
+    <table width = "80%">
+        <tr>
+            <th align="center">締切</th>
+            <th align="center">授業名</th>
+            <th align="center">課題内容</th>
+            <th align="center">提出方法</th>
+            <th align="center">追加日</th>
+            <th align="center">追加した人</th>
+        </tr>
+        <% for(var i = 0; i < tasks.length; i++){ %>
+            <tr>
+                <th><%= tasks[i].deadline %></th>
+                <th><%= tasks[i].className %></th>
+                <th><%= tasks[i].contents %></th>
+                <th><%= tasks[i].submitway %></th>
+                <th><%= tasks[i].created %></th>
+                <th><%= tasks[i].studentName %></th>
+                <th>
+                    <form action="/delete/task" method="post">
+                        <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
+                        <input type="submit" value="削除">
+                    </form>
+                </th>
+            </tr>
+        <% } %>
+    </table>
+    <a href="/logout">ログアウト</a>
+</body>
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生新規作成</title>
+</head>
+<body>
+    <form action="/create/student" method="post">
+        学生ID
+        <input name="studentId" type="number" min="1">
+        <br>
+        名前
+        <input name="studentName" type="text">
+        <br>
+        パスワード
+        <input name="studentPassword" type="password">
+        <br>
+        <input type="submit" value="作成">
+    </form>
+</body>
+</html>

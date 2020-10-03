@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ログイン画面</title>
+</head>
+<body>
+    <form action="/login" method="post">
+        <div>
+            <label>ユーザーID：</label>
+            <input type="text" name="studentId"/>
+        </div>
+        <div>
+            <label>パスワード：</label>
+            <input type="password" name="password"/>
+        </div>
+        <div>
+            <input type="submit" value="ログイン"/>
+        </div>
+    </form>  
+    ※ログイン後60分以上経過するとログイン画面に戻ります
+</body>
+</html>
