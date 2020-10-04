@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登録授業一覧</title>
+</head>
+<body>
+    <h1>登録授業一覧</h1>
+    <a href="/new/class">授業追加</a>
+    <ul>
+      <% for(var i = 0; i < classes.length; i++){ %>
+        <li>
+          <%= classes[i].name %>
+          <form  action="/delete/class" method="post">
+            <input type="hidden" name="classId" value="<%= classes[i].id %>">
+            <input type="submit" value="削除">
+          </form>
+        </li>
+      <% } %>
+    </ul>
+    <h3><a href="/index">トップに戻る</a></h3>
+</body>
+</html>

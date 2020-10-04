@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生一覧</title>
+</head>
+<body>
+    <h1>学生一覧</h1>
+    <a href="/new/student">新規作成</a>
+    <table width = "80%">
+        <tr>
+            <th align="center">学生ID</th>
+            <th align="center">名前</th>
+        </tr>
+        <% for(var i = 0; i < students.length; i++){ %>
+            <tr>
+                <th><%= students[i].id %></th>
+                <th><%= students[i].name %></th>
+                <th>
+                    <form action="/delete/student" method="post">
+                      <input type="hidden" name="studentId" value="<%= students[i].id %>">
+                      <input type="submit" value="削除">
+                    </form>
+                </th>
+                <th>
+                  <form action="/edit/student" method="post">
+                    <input type="hidden" name="studentId" value="<%= students[i].id %>">
+                    <input type="submit" value="名前を変更する">
+                  </form>
+                </th>
+            </tr>
+        <% } %>
+    </table>
+    <h3><a href="/index">トップに戻る</a></h3>
+</body>
+</html>

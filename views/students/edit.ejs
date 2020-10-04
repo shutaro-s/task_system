@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学生編集</title>
+  </head>
+  <body>
+    <form action="/update/student" method="post">
+        <input name="studentId" type="hidden" value=<%= student[0].id %>>
+        名前
+        <input name="studentName" type="text" value=<%= student[0].name %>>
+        <br>
+        <input type="submit" value="更新する">
+    </form>
+    <h3><a href="/student">一覧へ戻る</a></h3
+  </body>
+</html>

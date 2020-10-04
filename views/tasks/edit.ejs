@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題編集</title>
+</head>
+<body>
+    <form action="/update/task" method="post">
+        授業
+        <select name="classId">
+            <% for(var i = 0; i < task.length; i++){ %>
+              <% if(%><%= task[i].id %><% == %><%= task[i].classId %><% ){%>
+                <option value=<%= task[i].classId %> selected><%= task[i].name %></option>
+              <% } else { %>
+                <option value=<%= task[i].classId %>><%= task[i].name %></option>
+              <% } %>
+            <% } %>
+        </select>
+        <br>
+        課題
+            <input type="text" name="taskContents" value="taskContents">
+        <br>
+        締切
+            <input type="date" name="taskDay" value="deadlineDay">
+            <select name="taskHour">
+              <% if(%><%= task[0].deadlineHour %><% == 8 ){%>
+                <option value="08" selected>08</option>
+              <% } else { %>
+              <option value="08">08</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 9 ){%>
+                <option value="09" selected>09</option>
+              <% } else { %>
+              <option value="09">09</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 10 ){%>
+                <option value="10" selected>10</option>
+              <% } else { %>
+              <option value="10">10</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 11 ){%>
+                <option value="11" selected>11</option>
+              <% } else { %>
+              <option value="11">11</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 12 ){%>
+                <option value="12" selected>12</option>
+              <% } else { %>
+              <option value="12">12</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 13 ){%>
+                <option value="13" selected>13</option>
+              <% } else { %>
+              <option value="13">13</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 14 ){%>
+                <option value="14" selected>14</option>
+              <% } else { %>
+              <option value="14">14</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 15 ){%>
+                <option value="15" selected>15</option>
+              <% } else { %>
+              <option value="15">15</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 16 ){%>
+                <option value="16" selected>16</option>
+              <% } else { %>
+              <option value="16">16</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 17 ){%>
+                <option value="17" selected>17</option>
+              <% } else { %>
+              <option value="17">17</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 18 ){%>
+                <option value="18" selected>18</option>
+              <% } else { %>
+              <option value="18">18</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 19 ){%>
+                <option value="19" selected>19</option>
+              <% } else { %>
+              <option value="19">19</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 20 ){%>
+                <option value="20" selected>20</option>
+              <% } else { %>
+              <option value="20">20</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 21 ){%>
+                <option value="21" selected>21</option>
+              <% } else { %>
+              <option value="21">21</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 22 ){%>
+                <option value="22" selected>22</option>
+              <% } else { %>
+              <option value="22">22</option>
+              <% } %>
+              <% if(%><%= task[0].deadlineHour %><% == 23 ){%>
+                <option value="23" selected>23</option>
+              <% } else { %>
+              <option value="23">23</option>
+              <% } %>
+              </select>
+              :
+              <select name="taskMinute">
+                <% if(%><%= task[0].deadlineMinute %><% == 00 ){%>
+                  <option value="00" selected>00</option>
+                <% } else { %>
+                <option value="00">00</option>
+                <% } %>
+                <% if(%><%= task[0].deadlineMinute %><% == 30 ){%>
+                  <option value="30" selected>30</option>
+                <% } else { %>
+                <option value="30">30</option>
+                <% } %>
+                <% if(%><%= task[0].deadlineMinute %><% == 59 ){%>
+                  <option value="59" selected>59</option>
+                <% } else { %>
+                <option value="59">59</option>
+                <% } %>
+              </select>
+        <br>
+        提出方法
+        <select name="taskSubmitWay">
+          <% if(%><%= task[0].submitway %><% == "コースパワー" ){%>
+            <option value="コースパワー" selected>コースパワー</option>
+          <% } else { %>
+            <option value="コースパワー">コースパワー</option>
+          <% } %>
+          <% if(%><%= task[0].submitway %><% == "メール" ){%>
+            <option value="メール" selected>メール</option>
+          <% } else { %>
+            <option value="メール">メール</option>
+          <% } %>
+          <% if(%><%= task[0].submitway %><% == "その他" ){%>
+            <option value="その他" selected>その他</option>
+          <% } else { %>
+            <option value="その他" >その他</option>
+          <% } %>
+        </select>
+        <input type="hidden" name="taskId" value=<%= task[0].id %>>
+        <br>
+        <input type="submit" value="追加">
+    </form>
+    <h3><a href="/index">トップに戻る</a></h3>
+</body>
+</html>

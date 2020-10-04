@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>授業新規登録</title>
+</head>
+<body>
+    <form action="/create/class" method="post">
+        授業名
+        <select name="className">
+          <option value=0>選択してください</option>
+          <% for(int i = 0; i < classes.length; i++){ %>
+            <%   if(classes[i].name == "確率・統計"){ %>
+              <% } else{%>
+                <option value="確率・統計">確率・統計</option>
+              <% } %>
+              <% if(classes[i].name == "品質管理技術"){ %>        
+              <% } else{%>
+                <option value="品質管理技術">品質管理技術</option>
+              <% } %>
+              <% if( classes[i].name == "分析技術実験"){ %>
+              <% } else{%>
+                <option value="分析技術実験">分析技術実験</option>
+              <% } %>
+            <% } %>
+        </select>
+        <br>
+        <input type="submit" value="登録">
+    </form>
+    <h3><a href="/index">トップに戻る</a></h3>
+</body>
+</html>
