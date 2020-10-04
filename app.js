@@ -113,16 +113,34 @@ app.post('/create/:about', isAuthenticated, (req, res) => {
     }
   );
   }else if (req.params.about == "class") {
+    var class_flag = true;
     if(req.body.className == 0){
       res.redirect('/index');
     } else{
-      //データベース追加処理
+    //データベース追加処理
     connection.query(
-      'INSERT INTO testclass (student_id, name) VALUES(?, ?)',
-      [req.session.studentId, req.body.className],
+      'SELECT name FROM testclass WHERE student_id = ?',
+      [req.session.studentId],
       (error, results) => {
-        //indexへリダイレクト
-        res.redirect('/class');
+        for(var i = 0; i < results.length; i++){
+          if(results[i].name == req.body.className){
+            class_flag = false;
+            break;
+          }
+        }
+        if(class_flag){
+          connection.query(
+            'INSERT INTO testclass (student_id, name) VALUES(?, ?)',
+            [req.session.studentId, req.body.className],
+            (error, results) => {
+              //classes.indexへリダイレクト
+              res.redirect('/class');
+            }
+          );
+        }else{
+          //classes.indexへリダイレクト
+          res.redirect('/class');
+        }
       }
     );
     }
