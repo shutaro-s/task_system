@@ -115,16 +115,17 @@ app.post('/create/:about', isAuthenticated, (req, res) => {
   }else if (req.params.about == "class") {
     if(req.body.className == 0){
       res.redirect('/index');
-    }
-    //データベース追加処理
+    } else{
+      //データベース追加処理
     connection.query(
       'INSERT INTO testclass (student_id, name) VALUES(?, ?)',
       [req.session.studentId, req.body.className],
       (error, results) => {
         //indexへリダイレクト
-        res.redirect('/index');
+        res.redirect('/class');
       }
     );
+    }
   }
   else if (req.params.about == "task") {
     var date_str = req.body.taskDay;
@@ -226,7 +227,7 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
       [hash, req.session.studentId],
       (error, results) => {
         //indexへリダイレクト
-        res.redirect('/index');
+        res.redirect('/logout');
       }
     );
   }
@@ -235,6 +236,7 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
 /*---------------DB処理---------------*/
 
 /*---------------学生管理---------------*/
+
 //一覧表示
 app.get('/student', isAuthenticated, (req, res) => {
   connection.query(
@@ -243,6 +245,10 @@ app.get('/student', isAuthenticated, (req, res) => {
       res.render('students/index.ejs', {students: results});
     }
   );
+});
+//パスワード変更画面
+app.get('/edit/password', isAuthenticated, (req, res) => {
+  res.render('students/editpass.ejs');
 });
 
 /*---------------学生管理---------------*/
@@ -266,7 +272,43 @@ app.get('/class', isAuthenticated, (req, res) => {
 
 /*---------------課題管理---------------*/
 
+//管理画面
+app.get('/task', isAuthenticated, (req, res) => {
+    res.render('tasks/index.ejs');
+});
 
+//全員分見る
+app.get('/task/all', isAuthenticated, (req, res) => {
+  connection.query(
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H時%i分") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className, student.name as studentName FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id ORDER BY deadline',
+    (error, allresults) => {
+      connection.query(
+        'SELECT name FROM testclass WHERE student_id = ?',
+        [req.session.studentId],
+        (error, results) => {
+          res.render('tasks/all.ejs', {tasks: allresults, classes: results});
+        }
+      );
+    }
+  );
+});
+
+//フィルター画面
+app.post('/task/all/filter', isAuthenticated, (req, res) => {
+  connection.query(
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H時%i分") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className, student.name as studentName FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE class.name = ? ORDER BY deadline',
+    [req.body.className],
+    (error, allresults) => {
+      connection.query(
+        'SELECT name FROM testclass WHERE student_id = ?',
+        [req.session.studentId],
+        (error, results) => {
+          res.render('tasks/all.ejs', {tasks: allresults, classes: results});
+        }
+      );
+    }
+  );
+});
 /*---------------課題管理---------------*/
 
 
@@ -276,7 +318,7 @@ app.get('/class', isAuthenticated, (req, res) => {
 app.get('/index', isAuthenticated, (req, res) => {
   var name = req.session.studentName;
   connection.query(
-    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H:%i:%s") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H時%i分") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
     [req.session.studentId],
     (error, results) => {
       res.render('index.ejs', {tasks: results, studentName: name});
@@ -317,8 +359,8 @@ app.post('/edit/:about', isAuthenticated, (req, res) => {
     );
   } else if(req.params.about == "task"){
     connection.query(
-      'SELECT task.id, task.class_id,  task.contents, DATE_FORMAT(task.deadline, "%Y-%m-%d") as deadlineDay, HOUR(task.deadline) AS deadlineHour, MINUTE(task.deadline) AS deadlineMinute, task.submitway, class.name FROM testtask AS task LEFT JOIN testclass AS class ON task.id = ? WHERE task.id = ?',
-      [req.body.taskId],
+      'SELECT task.id, task.class_id,  task.contents, DATE_FORMAT(task.deadline, "%Y-%m-%d") as deadlineDay, HOUR(task.deadline) AS deadlineHour, MINUTE(task.deadline) AS deadlineMinute, task.submitway, class.name FROM testtask AS task LEFT JOIN testclass AS class ON task.class_id = class.id WHERE task.id = ?',
+      [req.body.taskId, req.body.taskId],
       (error, results) => {
         res.render('tasks/edit.ejs', {task: results});
       }

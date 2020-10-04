@@ -10,8 +10,10 @@
     <h1><%= studentName%>さんのページ</h1>
     <h2><a href="/student">学生管理</a></h2>
     <h2><a href="/class">授業管理</a></h2>
-    <h2><a href="/new/task">課題追加</a></h2>
+    <h2><a href="/task">課題管理</a></h2>
     <h3> <a href="/edit/password">パスワード変更</a></h3>
+    <br>
+    <h2>自分の課題一覧</h2>
     <table width = "80%">
         <tr>
             <th align="center">締切</th>
@@ -25,7 +27,11 @@
                 <th><%= tasks[i].deadline %></th>
                 <th><%= tasks[i].className %></th>
                 <th><%= tasks[i].contents %></th>
+                <% if(tasks[i].submitway == "コースパワー"){ %>
+                    <th><a href="https://cp.aim.aoyama.ac.jp/" target="_blank"><%= tasks[i].submitway %></a></th>
+                <% }else{ %>
                 <th><%= tasks[i].submitway %></th>
+                <% } %>
                 <th><%= tasks[i].created %></th>
                 <th>
                     <form action="/delete/task" method="post">
@@ -42,6 +48,7 @@
             </tr>
         <% } %>
     </table>
+    <br>
     <a href="/logout">ログアウト</a>
 </body>
 </html>

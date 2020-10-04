@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>課題一覧</title>
+</head>
+<body>
+    <h3>登録授業で検索</h3>
+    <form action="/task/all/filter" method="POST">
+        <% for(var i = 0; i < classes.length; i++){ %>
+            <input type="radio" name=className value="<%= classes[i].name %>" ><%= classes[i].name %>
+        <% } %>
+        <input type="submit" value="検索">
+    </form>
+    <br>
+    <table width = "80%">
+        <tr>
+            <th align="center">締切</th>
+            <th align="center">授業名</th>
+            <th align="center">課題内容</th>
+            <th align="center">提出方法</th>
+            <th align="center">追加日</th>
+            <th align="center">追加した人</th>
+        </tr>
+        <% for(var i = 0; i < tasks.length; i++){ %>
+            <tr>
+                <th><%= tasks[i].deadline %></th>
+                <th><%= tasks[i].className %></th>
+                <th><%= tasks[i].contents %></th>
+                <th><%= tasks[i].submitway %></th>
+                <th><%= tasks[i].created %></th>
+                <th><%= tasks[i].studentName %></th>
+        <% } %>
+    </table>
+    <h3><a href="/task/all">全表示に戻る</a></h3>
+    <h3><a href="/task">課題管理に戻る</a></h3>
+    <h3><a href="/index">トップに戻る</a></h3>
+</body>
+</html>
