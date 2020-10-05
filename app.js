@@ -250,6 +250,23 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
     );
   }
 });
+//パスワード忘れたとき用更新処理
+app.post('/remake/password', (req, res) => {
+  //パスワードをハッシュ化する
+  var pass2 = req.body.studentId;
+  var sha5122 = crypto.createHash('sha512');
+  sha5122.update(pass2);
+  var hash2 = sha5122.digest('hex');
+  //データベース更新処理
+  connection.query(
+    'UPDATE teststudent SET password = ? WHERE id = ?',
+    [hash2, req.body.studentId],
+    (error, results) => {
+      //確認画面へ
+      res.render('check.ejs', {studentId: req.body.studentId});
+    }
+  );
+});
 
 /*---------------DB処理---------------*/
 
