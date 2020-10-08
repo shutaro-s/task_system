@@ -3,14 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/pass.css">
     <title>パスワード変更</title>
 </head>
 <body>
-    <form action="/update/password" method="post">
-        新しいパスワード
-        <input type="password" name="studentPassword" required>
-        <input type="submit" value="変更する">
-    </form>
-    <h3><a href="/index">トップへ戻る</a></h3>
+    <div class="parent">
+        <h1>パスワード変更</h1>
+        <div class="pass">
+            <form action="/update/password" method="post">
+                <p>新しいパスワード</p>
+                <input type="password" name="studentPassword" required>
+        </div>
+                <input type="submit" value="変更">
+            </form>
+        <h3><a href="/index">トップへ戻る</a></h3>
+    </div>
 </body>
 </html>

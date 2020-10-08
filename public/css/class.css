@@ -1,0 +1,83 @@
+body{
+    background-image: url("../image/sagamihara2.jpeg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    margin: 0;
+    font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
+}
+
+.marge{
+    box-sizing: border-box;
+    width: 100%;
+    height: 120px;
+    margin: 0;
+  }
+
+.class{
+    background-color: rgb(230, 247, 230);
+}
+
+.class h1{
+    margin-bottom: 0;
+}
+
+ul.cp_list {
+	padding: 0.5em;
+    list-style-type: none;
+    background-color: azure;
+    margin-top: 0;
+}
+ul.cp_list li {
+	position: relative;
+	padding: 0.5em 1em 0.5em 2.3em;
+	margin-bottom:5px;
+	border-bottom: 1px solid rgba(25,118,210,1);
+}
+ul.cp_list li:after,
+ul.cp_list li:before{
+	content:'';
+	position: absolute;
+	border-radius: 50%;
+}
+ul.cp_list li:before {
+	top: 50%;
+	left: 0.2em;
+	width: 17px;
+	height: 17px;
+	background: rgba(25,118,210, 1);
+	transform: translateY(-50%);
+}
+ul.cp_list li:after {
+	top: 1.1em;
+	left: 0.7em;
+	width: 14px;
+	height: 14px;
+	background: rgba(25,118,210, 0.5);
+}
+
+input[type="submit"] {
+    /* input要素のうちtype属性値がbuttonのものに対して装飾 */
+    background-image: linear-gradient(0deg, #a7d9f5, #eaf6fd); /* グラデーション */
+    border: 1px solid #3c7fb1; /* 枠線 */
+    border-radius: 0.3em;      /* 角丸 */
+  }
+  
+  input[type="submit"]:hover {
+    /* マウスが載ったとき */
+    background-image: linear-gradient(0deg, #68d3db, #e5f4fc);
+    border: 1px solid #2c628b;
+  }
+  input[type="submit"]:active {
+    /* クリックされたとき */
+    background-image: linear-gradient(180deg, #68d3db, #e5f4fc);
+    border: 1px solid skyblue;
+  }

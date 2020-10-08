@@ -12,7 +12,7 @@
         <form action="/create/task" method="post">
             <div class="taskclass">
                 <p>授業</p>
-                <select name="classId" id="sources" placeholder="Source Type">
+                <select name="classId" id="sources" placeholder="Source Type" required>
                     <% for(var i = 0; i < classes.length; i++){ %>
                         <option value=<%= classes[i].id %>><%= classes[i].name %></option>
                     <% } %>

@@ -296,7 +296,7 @@ app.get('/class', isAuthenticated, (req, res) => {
     'SELECT * FROM testclass WHERE student_id = ? ORDER BY id',
     [req.session.studentId],
     (error, results) => {
-      res.render('classes/index.ejs', {classes: results});
+      res.render('classes/index.ejs', {classes: results, studentName: req.session.studentName});
     }
   );
 });
