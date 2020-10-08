@@ -3,52 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- <script src="/js/script.js"></script> -->
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/index.css">
     <title>初期画面</title>
 </head>
 <body>
-    <h1><%= studentName%>さんのページ</h1>
-    <h2><a href="/student">学生管理</a></h2>
-    <h2><a href="/class">授業管理</a></h2>
-    <h2><a href="/task">課題管理</a></h2>
-    <h3> <a href="/edit/password">パスワード変更</a></h3>
-    <br>
-    <h2>自分の課題一覧</h2>
-    <table width = "80%">
-        <tr>
-            <th align="center">締切</th>
-            <th align="center">授業名</th>
-            <th align="center">課題内容</th>
-            <th align="center">提出方法</th>
-            <th align="center">追加日</th>
-        </tr>
-        <% for(var i = 0; i < tasks.length; i++){ %>
-            <tr>
-                <th><%= tasks[i].deadline %></th>
-                <th><%= tasks[i].className %></th>
-                <th><%= tasks[i].contents %></th>
-                <% if(tasks[i].submitway == "コースパワー"){ %>
-                    <th><a href="https://cp.aim.aoyama.ac.jp/" target="_blank"><%= tasks[i].submitway %></a></th>
-                <% }else{ %>
-                <th><%= tasks[i].submitway %></th>
+    <div class="wrapper">
+    <header class="header-6">
+        <div class="box box-logo">
+            <div class="header-name"><%= studentName%></div>
+            <h2>TaskReminder</h2>
+            <a href="/logout" class="button-2">ログアウト</a>
+        </div>
+        <div class="box box-nav">
+            <ul class="inner-nav">
+                <% if(studentName == "test"){ %>
+                    <li class="menu">
+                        <p class="en"><a href="/student">学生管理</a></p>
+                        <p class="jp">student</p>
+                    </li>
                 <% } %>
-                <th><%= tasks[i].created %></th>
-                <th>
-                    <form action="/delete/task" method="post">
-                        <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
-                        <input type="submit" value="削除">
-                    </form>
-                </th>
-                <th>
-                  <form action="/edit/task" method="post">
-                    <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
-                    <input type="submit" value="変更する">
-                  </form>
-                </th>
+                <li class="menu">
+                    <p class="en"><a href="/class">授業管理</a></p>
+                    <p class="jp">class</p>
+                </li>
+                <li class="menu">
+                    <p class="en"><a href="/task">課題管理</a></p>
+                    <p class="jp">task</p>
+                </li>
+                <li class="menu">
+                    <p class="en"><a href="/edit/password">パスワード変更</a></p>
+                    <p class="jp">password</p>
+                </li>
+            </ul>
+        </div>
+    </header>
+        <br>
+        <div class="mytask">
+            <h1>自分の課題一覧</h1>
+            <a href="/new/task">課題追加</a>
+        </div>
+        <table width = "80%">
+            <tr>
+                <th>締切</th>
+                <th>授業名</th>
+                <th>課題内容</th>
+                <th>提出方法</th>
+                <th>追加日</th>
+                <th></th>
+                <th></th>
             </tr>
-        <% } %>
-    </table>
-    <br>
-    <a href="/logout">ログアウト</a>
+            <% for(var i = 0; i < tasks.length; i++){ %>
+                <tr>
+                    <td><%= tasks[i].deadline %></td>
+                    <td><%= tasks[i].className %></td>
+                    <td><%= tasks[i].contents %></td>
+                    <% if(tasks[i].submitway == "コースパワー"){ %>
+                        <td><a href="https://cp.aim.aoyama.ac.jp/" target="_blank"><%= tasks[i].submitway %></a></td>
+                    <% }else{ %>
+                    <td><%= tasks[i].submitway %></td>
+                    <% } %>
+                    <td><%= tasks[i].created %></td>
+                    <td>
+                        <form action="/delete/task" method="post">
+                            <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
+                            <input type="submit" value="削除">
+                        </form>
+                    </td>
+                    <td>
+                        <form action="/edit/task" method="post">
+                        <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
+                        <input type="submit" value="変更する">
+                        </form>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+        <br>
+    </div>
 </body>
 </html>

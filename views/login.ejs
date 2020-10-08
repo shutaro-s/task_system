@@ -18,19 +18,19 @@
     <form action="/login" method="post">
         <div class="form-item">
             <p class="formLabel">UserId</p>
-            <input type="text" name="studentId" id="text" class="form-style" autocomplete="off"/>
+            <input type="text" name="studentId" id="text" class="form-style" autocomplete="off" required/>
         </div>
         <div class="form-item">
-            <p class="formLabel">Password（1字まで表示）</p>
-            <input type="password" name="password" id="password" class="form-style" />
+            <p class="formLabel">Password</p>
+            <input type="password" name="password" id="password" class="form-style" autocomplete="off" required />
             <br>
             <input type="submit" class="login pull-right" value="Log In">
         </div>
     </form>
     <div class="form-item">
-        <p><small>※パスワードを忘れた場合はUserIdを入力してResetしてください</small></p>
         <form action="/remake/password" class="reset" method="post">
-            <input type="text" name="studentId" placeholder="UserId">
+            <p><small>※パスワードを忘れた場合はUserIdを入力してReset</small></p>
+            <input type="text" name="studentId" placeholder="UserId" required>
             <br>
             <br>
             <input type="submit" class="login pull-right" value="Reset">

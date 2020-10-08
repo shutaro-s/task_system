@@ -13,10 +13,10 @@
         </select>
         <br>
         課題
-            <input type="text" name="taskContents" value="<%= task[0].contents %>">
+            <textarea name="taskContents" required><%= task[0].contents %></textarea>>
         <br>
         締切
-            <input type="date" name="taskDay" value="<%= task[0].deadlineDay %>">
+            <input type="date" name="taskDay" value="<%= task[0].deadlineDay %>" required>
             <select name="taskHour">
               <% if(task[0].deadlineHour == 8 ){%>
                 <option value="08" selected>08</option>

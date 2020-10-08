@@ -8,13 +8,13 @@
 <body>
     <form action="/create/student" method="post">
         学生ID
-        <input name="studentId" type="number" min="1">
+        <input name="studentId" type="number" min="1" required>
         <br>
         名前
-        <input name="studentName" type="text">
+        <input name="studentName" type="text" required>
         <br>
         パスワード
-        <input name="studentPassword" type="password">
+        <input name="studentPassword" type="password" required>
         <br>
         <input type="submit" value="作成">
     </form>

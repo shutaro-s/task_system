@@ -9,7 +9,7 @@
     <form action="/update/student" method="post">
         <input name="studentId" type="hidden" value=<%= student[0].id %>>
         名前
-        <input name="studentName" type="text" value=<%= student[0].name %>>
+        <input name="studentName" type="text" value=<%= student[0].name %> required>
         <br>
         <input type="submit" value="更新する">
     </form>

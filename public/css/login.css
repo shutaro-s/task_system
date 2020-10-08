@@ -7,11 +7,11 @@ body{
  font-family:'Sacramento', cursive;
 
 }
-p{
+p small{
    display: block;
    width: 60%;
    position: absolute;
-   bottom: 20px;
+   bottom: 30;
 }
 .reset input[type="text"]{
    font-family: 'Sacramento', cursive;
@@ -118,3 +118,13 @@ input[type="submit"].login{
 }
 input[type="submit"].login:hover{background-color: #fff; border:1px solid #55b1df; color:#55b1df; cursor:pointer;}
 input[type="submit"].login:focus{outline: none;}
+
+
+  /* ========== チェック画面 ========== */
+.check{
+   background-color: #fff;
+}
+
+.checkbody{
+   margin: 0;
+}
