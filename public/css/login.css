@@ -4,8 +4,9 @@ body{
  -moz-background-size: cover;
  -o-background-size: cover;
  background-size: cover;
+ background-repeat: no-repeat;
+ background-attachment: fixed;
  font-family:'Sacramento', cursive;
-
 }
 p small{
    display: block;

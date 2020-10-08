@@ -315,13 +315,13 @@ app.get('/task', isAuthenticated, (req, res) => {
 //全員分見る
 app.get('/task/all', isAuthenticated, (req, res) => {
   connection.query(
-    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H時%i分") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className, student.name as studentName FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id ORDER BY deadline',
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%m/%d") as created, class.name as className, student.name as studentName FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id ORDER BY deadline',
     (error, allresults) => {
       connection.query(
         'SELECT name FROM testclass WHERE student_id = ?',
         [req.session.studentId],
         (error, results) => {
-          res.render('tasks/all.ejs', {tasks: allresults, classes: results});
+          res.render('tasks/all.ejs', {tasks: allresults, classes: results, studentName: req.session.studentName});
         }
       );
     }
@@ -331,14 +331,14 @@ app.get('/task/all', isAuthenticated, (req, res) => {
 //フィルター画面
 app.post('/task/all/filter', isAuthenticated, (req, res) => {
   connection.query(
-    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H時%i分") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className, student.name as studentName FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE class.name = ? ORDER BY deadline',
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%m/%d") as created, class.name as className, student.name as studentName FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE class.name = ? ORDER BY deadline',
     [req.body.className],
     (error, allresults) => {
       connection.query(
         'SELECT name FROM testclass WHERE student_id = ?',
         [req.session.studentId],
         (error, results) => {
-          res.render('tasks/all.ejs', {tasks: allresults, classes: results});
+          res.render('tasks/all.ejs', {tasks: allresults, classes: results, studentName: req.session.studentName});
         }
       );
     }
@@ -353,7 +353,7 @@ app.post('/task/all/filter', isAuthenticated, (req, res) => {
 app.get('/index', isAuthenticated, (req, res) => {
   var name = req.session.studentName;
   connection.query(
-    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%Y年%m月%d日%H時%i分") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%Y/%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
     [req.session.studentId],
     (error, results) => {
       res.render('index.ejs', {tasks: results, studentName: name});

@@ -3,57 +3,65 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/task.css">
     <title>課題追加</title>
 </head>
 <body>
-    <form action="/create/task" method="post">
-        授業
-        <select name="classId">
-            <% for(var i = 0; i < classes.length; i++){ %>
-                <option value=<%= classes[i].id %>><%= classes[i].name %></option>
-            <% } %>
-        </select>
-        <br>
-        課題
-            <textarea name="taskContents" cols="24" rows="3" required></textarea>>
-        <br>
-        締切
-            <input type="date" name="taskDay" required>
-            <select name="taskHour">
-                <option value="00">00</option>
-                <option value="08">08</option>
-                <option value="09">09</option>
-                <option value="10">10</option>
-                <option value="11">11</option>
-                <option value="12">12</option>
-                <option value="13">13</option>
-                <option value="14">14</option>
-                <option value="15">15</option>
-                <option value="16">16</option>
-                <option value="17">17</option>
-                <option value="18">18</option>
-                <option value="19">19</option>
-                <option value="20">20</option>
-                <option value="21">21</option>
-                <option value="22">22</option>
-                <option value="23">23</option>
-              </select>
-              :
-              <select name="taskMinute">
-                <option value="00">00</option>
-                <option value="30">30</option>
-                <option value="59">59</option>
-              </select>
-        <br>
-        提出方法
-        <select name="taskSubmitWay">
-            <option value="コースパワー">コースパワー</option>
-            <option value="メール">メール</option>
-            <option value="その他">その他</option>
-        </select>
-        <br>
-        <input type="submit" value="追加">
-    </form>
-    <h3><a href="/index">トップに戻る</a></h3>
+    <div class="parent">
+        <h1>課題追加</h1>
+        <form action="/create/task" method="post">
+            <div class="taskclass">
+                <p>授業</p>
+                <select name="classId" id="sources" placeholder="Source Type">
+                    <% for(var i = 0; i < classes.length; i++){ %>
+                        <option value=<%= classes[i].id %>><%= classes[i].name %></option>
+                    <% } %>
+                </select>
+            </div>
+            <div class="tasktask">
+                <p>課題</p>
+                    <textarea name="taskContents" cols="60" rows="3" required></textarea>
+            </div>
+            <div class="taskdeadline">
+                <p>締切</p>
+                <input type="date" name="taskDay" required>
+                <select name="taskHour">
+                    <option value="00">00</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                  </select>
+                  :
+                  <select name="taskMinute">
+                    <option value="00">00</option>
+                    <option value="30">30</option>
+                    <option value="59">59</option>
+                  </select>
+            </div>
+            <div class="tasksubmitway">
+                <p>提出方法</p>
+                <select name="taskSubmitWay">
+                    <option value="コースパワー">コースパワー</option>
+                    <option value="メール">メール</option>
+                    <option value="その他">その他</option>
+                </select>
+            </div>
+            <input type="submit" value="追加">
+        </form>
+        <h3><a href="/index">トップに戻る</a></h3>
+    </div>
 </body>
 </html>

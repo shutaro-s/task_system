@@ -4,6 +4,8 @@ body{
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     margin: 0;
     font-family: "Helvetica Neue",
     Arial,
@@ -11,6 +13,13 @@ body{
     "Hiragino Sans",
     Meiryo,
     sans-serif;
+}
+
+.marge{
+  box-sizing: border-box;
+  width: 100%;
+  height: 120px;
+  margin: 0;
 }
 
 table{
@@ -31,7 +40,7 @@ table{
   }
   
   table tr:nth-child(odd){
-    background-color: #eee
+    background-color: rgb(187, 190, 189)
   }
 
   table tr:nth-child(even){

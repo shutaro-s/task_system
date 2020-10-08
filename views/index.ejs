@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/index.css">
-    <title>初期画面</title>
+    <title>トップページ</title>
 </head>
 <body>
     <div class="wrapper">
@@ -28,7 +28,7 @@
                     <p class="jp">class</p>
                 </li>
                 <li class="menu">
-                    <p class="en"><a href="/task">課題管理</a></p>
+                    <p class="en"><a href="/task/all">全員の課題</a></p>
                     <p class="jp">task</p>
                 </li>
                 <li class="menu">
@@ -38,12 +38,13 @@
             </ul>
         </div>
     </header>
-        <br>
+    <p class="marge"></p>
+    <br>
         <div class="mytask">
             <h1>自分の課題一覧</h1>
             <a href="/new/task">課題追加</a>
         </div>
-        <table width = "80%">
+        <table>
             <tr>
                 <th>締切</th>
                 <th>授業名</th>
@@ -73,13 +74,12 @@
                     <td>
                         <form action="/edit/task" method="post">
                         <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
-                        <input type="submit" value="変更する">
+                        <input type="submit" value="変更">
                         </form>
                     </td>
                 </tr>
             <% } %>
         </table>
-        <br>
     </div>
 </body>
 </html>
