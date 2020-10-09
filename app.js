@@ -8,6 +8,16 @@ const domain = require('express-domain-middleware');
 const crypto = require("crypto");
 const app = express();
 
+var PORT = 3000;
+var http = require('http');
+var server = http.Server(app);
+
+app.use(express.static('client'));
+
+server.listen(PORT, function(){
+  console.log('app server runnning');
+})
+
 app.use(express.static('public'));
 app.use(express.urlencoded({extended: false}));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -403,5 +413,3 @@ app.post('/edit/:about', isAuthenticated, (req, res) => {
   }
 });
 /*---------------共通ページ---------------*/
-
-app.listen(3000);

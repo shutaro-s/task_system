@@ -3,19 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/task.css">
     <title>課題編集</title>
 </head>
 <body>
+  <div class="parent">
+    <h1>課題編集</h1>
     <form action="/update/task" method="post">
-        授業
+      <div class="taskclass">
+        <p>授業</p>
         <select name="classId">
           <option value=<%= task[0].class_id %>><%= task[0].name %></option>
         </select>
-        <br>
-        課題
-            <textarea name="taskContents" required><%= task[0].contents %></textarea>>
-        <br>
-        締切
+      </div>
+      <div class="tasktask">
+        <p>課題</p>
+            <textarea name="taskContents" required><%= task[0].contents %></textarea>
+      </div>
+      <div class="taskdeadline">
+        <p>締切</p>
             <input type="date" name="taskDay" value="<%= task[0].deadlineDay %>" required>
             <select name="taskHour">
               <% if(task[0].deadlineHour == 8 ){%>
@@ -117,8 +123,9 @@
                 <option value="59">59</option>
                 <% } %>
               </select>
-        <br>
-        提出方法
+      </div>
+      <div class="tasksubmitway">
+        <p>提出方法</p>
         <select name="taskSubmitWay">
           <% if(task[0].submitway == "コースパワー" ){%>
             <option value="コースパワー" selected>コースパワー</option>
@@ -137,9 +144,10 @@
           <% } %>
         </select>
         <input type="hidden" name="taskId" value=<%= task[0].id %>>
-        <br>
+      </div>
         <input type="submit" value="追加">
     </form>
     <h3><a href="/index">トップに戻る</a></h3>
+  </div>
 </body>
 </html>
