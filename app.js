@@ -8,7 +8,7 @@ const domain = require('express-domain-middleware');
 const crypto = require("crypto");
 const app = express();
 
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 var http = require('http');
 var server = http.Server(app);
 
