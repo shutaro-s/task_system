@@ -45,10 +45,10 @@ function isAuthenticated(req, res, next){
 
 //MySQL接続処理
 const connection = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: 'cY8TuNsnkRvz',
-  database: 'task_system'
+  host: 'us-cdbr-east-02.cleardb.com',
+  user: 'bdd5eca984ce24',
+  password: 'c2670db2',
+  database: 'heroku_9784c0d44d2b489'
 });
 
 //接続できたかを確認
