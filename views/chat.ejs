@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" href="/css/chat.css">
+    <title>リアルタイムチャット</title>
+</head>
+<body>
+  <div class="bg">
+    <div class="contents">
+      <h1 class="chat">リアルタイムチャット</h1>
+      <p class="chat"><a href="/index">トップに戻る</a></p>
+      <ul id="messages" class="list"></ul>
+      <form id="message_form" action="#">
+        <input id="input_msg" autocomplete="off" /><button>送信</button>
+      </form>
+    </div>
+  <script>
+      var socketio = io();
+      $(function(){
+          $('#message_form').submit(function(){
+            socketio.emit('message', $('#input_msg').val());
+            $('#input_msg').val('');
+            return false;
+          });
+          socketio.on('message',function(msg){
+            $('#messages').append($('<li>').text(msg));
+            $('#messages').append($('<li>').text('　　From : <%= name%>'));  
+          });
+        });
+    </script>
+  </div>
+</body>
+</html>

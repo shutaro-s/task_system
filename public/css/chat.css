@@ -1,0 +1,74 @@
+body{
+    margin: 0;
+    font-family: "Helvetica Neue",
+    Arial,
+    "Hiragino Kaku Gothic ProN",
+    "Hiragino Sans",
+    Meiryo,
+    sans-serif;
+    background-image: url("../image/sagamihara2.jpeg");
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.chat{
+    background: rgb(230, 247, 230);
+    color: #58bff6;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.chat a{
+    font-size: 1.3em;
+    font-weight: bold;
+    text-decoration: none;
+  }   
+.chat a:hover {
+    color: #00b5ad;
+  }
+
+/* .list{
+    position: absolute;
+    left: 0;
+    top: 24%;
+} */
+
+ul li:nth-child(even){
+    font-size: 20px;
+    background-color: rgb(230, 247, 230);
+    list-style: none;
+  }
+
+ul li:nth-child(odd){
+    font-size: 24px;
+    background-color: #fff;
+    margin-top: 0;
+  }
+
+button {
+    /* input要素のうちtype属性値がbuttonのものに対して装飾 */
+    background-image: linear-gradient(0deg, #a7d9f5, #eaf6fd); /* グラデーション */
+    border: 1px solid #3c7fb1; /* 枠線 */
+    border-radius: 0.3em;      /* 角丸 */
+ }
+
+button:hover {
+    /* マウスが載ったとき */
+    background-image: linear-gradient(0deg, #68d3db, #e5f4fc);
+    border: 1px solid #2c628b;
+ }
+button:active {
+    /* クリックされたとき */
+    background-image: linear-gradient(180deg, #68d3db, #e5f4fc);
+    border: 1px solid skyblue;
+ }
+
+#message_form{
+    padding: 30px;
+    margin: 20px;
+}

@@ -12,10 +12,17 @@ const app = express();
 var PORT = process.env.PORT || 3000;
 var http = require('http');
 var server = http.Server(app);
+const io = require('socket.io')(server);
 
 var count = 0;
 
 app.use(express.static('client'));
+
+io.on('connection',function(socket){
+  socket.on('message',function(msg){
+      io.emit('message', msg);
+  });
+});
 
 server.listen(PORT, function(){
   console.log('app server runnning');
@@ -431,5 +438,10 @@ app.post('/edit/:about', isAuthenticated, (req, res) => {
       }
     );
   }
+});
+
+//チャット
+app.get('/chat', isAuthenticated, (req, res) => {
+  res.render('chat.ejs', {name: req.session.studentName});
 });
 /*---------------共通ページ---------------*/
