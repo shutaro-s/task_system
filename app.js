@@ -243,7 +243,7 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
     //データベース更新処理
     connection.query(
       'UPDATE testtask SET class_id = ?, contents = ?, deadline = ?, submitway = ?, level = ?, update_at = NOW() WHERE id = ?',
-      [req.body.classId, req.body.taskContents, taskDeadLine, req.body.taskSubmitWay, req.body.level, req.body.taskId],
+      [req.body.classId, req.body.taskContents, taskDeadLine, req.body.taskSubmitWay, req.body.tasklevel, req.body.taskId],
       (error, results) => {
         //indexへリダイレクト
         res.redirect('/index');

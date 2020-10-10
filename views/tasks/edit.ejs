@@ -24,6 +24,11 @@
         <p>締切</p>
             <input type="date" name="taskDay" value="<%= task[0].deadlineDay %>" required>
             <select name="taskHour">
+              <% if(task[0].deadlineHour == 0 ){%>
+                <option value="00" selected>00</option>
+              <% } else { %>
+              <option value="08">08</option>
+              <% } %>
               <% if(task[0].deadlineHour == 8 ){%>
                 <option value="08" selected>08</option>
               <% } else { %>
