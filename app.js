@@ -269,13 +269,13 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
 //パスワード忘れたとき用更新処理
 app.post('/remake/password', (req, res) => {
   var newpass = Math.random().toString(32).substring(2);
-  var mailtext = 'パスワードを初期化しました．新しいパスワード：' + String(newpass);
+  var mailtext = 'パスワードを初期化しました．\n新しいパスワード：' + String(newpass);
   var mailto = 'a57' + String(req.body.studentId) + '@aoyama.jp';
   if(count == 0){
     sendmail({
       from: 'a5717040@aoyama.jp',
       to: mailto,
-      subject: 'パスワード初期化',
+      subject: '「TaskReminder」よりパスワード初期化のお知らせ',
       text: mailtext,
     }, function(err, reply) {
       console.log(err && err.stack);
