@@ -383,7 +383,7 @@ app.post('/task/all/filter', isAuthenticated, (req, res) => {
 app.get('/index', isAuthenticated, (req, res) => {
   var name = req.session.studentName;
   connection.query(
-    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, DATEDIFF((deadline - INTERVAL 1 WEEK), NOW()) as weekdiff, DATEDIFF((deadline - INTERVAL 1 DAY), NOW()) as daydiff, task.submitway, task.level, DATE_FORMAT(task.created_at, "%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, DATEDIFF((deadline - INTERVAL 1 WEEK), NOW() + INTERVAL 9 HOUR) as weekdiff, DATEDIFF((deadline - INTERVAL 1 DAY), NOW() + INTERVAL 9 HOUR) as daydiff, task.submitway, task.level, DATE_FORMAT(task.created_at + INTERVAL 9 HOUR, "%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
     [req.session.studentId],
     (error, results) => {
       res.render('index.ejs', {tasks: results, studentName: name, today: req.session.today});
