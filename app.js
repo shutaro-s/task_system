@@ -282,7 +282,7 @@ app.post('/remake/password', (req, res) => {
   }
   count++;
   //パスワードをハッシュ化する
-  var pass2 = req.body.studentId;
+  var pass2 = newpass;
   var sha5122 = crypto.createHash('sha512');
   sha5122.update(pass2);
   var hash2 = sha5122.digest('hex');
