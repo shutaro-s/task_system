@@ -83,15 +83,16 @@ app.post('/login', (req, res) => {
   sha512.update(pass);
   var hash = sha512.digest('hex');
   connection.query(
-    'SELECT id, name FROM teststudent WHERE id = ? AND password = ?',
+    'SELECT DATE_FORMAT(NOW() + INTERVAL 9 HOUR, "%Y/%m/%d(%W)") as td, id, name FROM teststudent WHERE id = ? AND password = ?',
     [studentId, hash],
     (error, results) => {
       if(results[0] == null){
         res.redirect('/');
       }else{
         req.session.regenerate((err) => {
-          req.session.studentId = studentId; //セッションの追加
-          req.session.studentName = results[0].name;
+          req.session.studentId = studentId; //セッションの追加（ユーザーID）
+          req.session.studentName = results[0].name; //ユーザー名
+          req.session.today = results[0].td; //今日の日付
           res.redirect('/index');
         });
       }
@@ -165,8 +166,8 @@ app.post('/create/:about', isAuthenticated, (req, res) => {
     var taskDeadLine = date_str + " " + req.body.taskHour + "*" + req.body.taskMinute + "*00";
     //データベース追加処理
     connection.query(
-      'INSERT INTO testtask (student_id, class_id, contents, deadline, submitway) VALUES(?, ?, ?, ?, ?)',
-      [req.session.studentId, req.body.classId, req.body.taskContents, taskDeadLine, req.body.taskSubmitWay],
+      'INSERT INTO testtask (student_id, class_id, contents, deadline, submitway, level) VALUES(?, ?, ?, ?, ?, ?)',
+      [req.session.studentId, req.body.classId, req.body.taskContents, taskDeadLine, req.body.taskSubmitWay, req.body.tasklevel],
       (error, results) => {
         //indexへリダイレクト
         res.redirect('/index');
@@ -241,8 +242,8 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
     var taskDeadLine = date_str + " " + req.body.taskHour + "*" + req.body.taskMinute + "*00";
     //データベース更新処理
     connection.query(
-      'UPDATE testtask SET class_id = ?, contents = ?, deadline = ?, submitway = ?, update_at = NOW() WHERE id = ?',
-      [req.body.classId, req.body.taskContents, taskDeadLine, req.body.taskSubmitWay, req.body.taskId],
+      'UPDATE testtask SET class_id = ?, contents = ?, deadline = ?, submitway = ?, level = ?, update_at = NOW() WHERE id = ?',
+      [req.body.classId, req.body.taskContents, taskDeadLine, req.body.taskSubmitWay, req.body.level, req.body.taskId],
       (error, results) => {
         //indexへリダイレクト
         res.redirect('/index');
@@ -382,10 +383,10 @@ app.post('/task/all/filter', isAuthenticated, (req, res) => {
 app.get('/index', isAuthenticated, (req, res) => {
   var name = req.session.studentName;
   connection.query(
-    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, task.submitway, DATE_FORMAT(task.created_at, "%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
+    'SELECT task.id, task.contents, DATE_FORMAT(task.deadline, "%m/%d %H:%i") as deadline, DATEDIFF((deadline - INTERVAL 1 WEEK), NOW()) as weekdiff, DATEDIFF((deadline - INTERVAL 1 DAY), NOW()) as daydiff, task.submitway, task.level, DATE_FORMAT(task.created_at, "%m/%d") as created, class.name as className FROM testtask as task LEFT JOIN testclass as class ON class.id = task.class_id LEFT JOIN teststudent as student ON student.id = task.student_id WHERE student.id = ? ORDER BY deadline',
     [req.session.studentId],
     (error, results) => {
-      res.render('index.ejs', {tasks: results, studentName: name});
+      res.render('index.ejs', {tasks: results, studentName: name, today: req.session.today});
     }
   );
 });
@@ -423,7 +424,7 @@ app.post('/edit/:about', isAuthenticated, (req, res) => {
     );
   } else if(req.params.about == "task"){
     connection.query(
-      'SELECT task.id, task.class_id,  task.contents, DATE_FORMAT(task.deadline, "%Y-%m-%d") as deadlineDay, HOUR(task.deadline) AS deadlineHour, MINUTE(task.deadline) AS deadlineMinute, task.submitway, class.name FROM testtask AS task LEFT JOIN testclass AS class ON task.class_id = class.id WHERE task.id = ?',
+      'SELECT task.id, task.class_id,  task.contents, DATE_FORMAT(task.deadline, "%Y-%m-%d") as deadlineDay, HOUR(task.deadline) AS deadlineHour, MINUTE(task.deadline) AS deadlineMinute, task.submitway, task.level, class.name FROM testtask AS task LEFT JOIN testclass AS class ON task.class_id = class.id WHERE task.id = ?',
       [req.body.taskId, req.body.taskId],
       (error, results) => {
         res.render('tasks/edit.ejs', {task: results});

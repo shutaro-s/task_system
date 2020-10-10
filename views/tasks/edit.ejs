@@ -145,6 +145,31 @@
         </select>
         <input type="hidden" name="taskId" value=<%= task[0].id %>>
       </div>
+      <div class="tasklevel">
+        <p>優先度</p>
+        <select name="tasklevel">
+          <% if(task[0].level == 0 ){%>
+            <option value=0 selected>低</option>
+          <% } else { %>
+            <option value=0>低</option>
+          <% } %>
+          <% if(task[0].level == 1 ){%>
+            <option value=1 selected>中</option>
+          <% } else { %>
+            <option value=1>中</option>
+          <% } %>
+          <% if(task[0].level == 2 ){%>
+            <option value=2 selected>高</option>
+          <% } else { %>
+            <option value=2>高</option>
+          <% } %>
+          <% if(task[0].level == 3 ){%>
+            <option value=3 selected>最優先</option>
+          <% } else { %>
+            <option value=3>最優先</option>
+          <% } %>
+        </select>
+      </div>
         <input type="submit" value="変更">
     </form>
     <h3><a href="/index">トップに戻る</a></h3>

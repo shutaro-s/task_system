@@ -86,17 +86,17 @@ table{
 
    /* ========== 課題追加画面 ========== */
 
-.parent{
-  position: absolute;
-   width:60%;
-   height:90%;
-   background-color: #fff;
-   margin:auto;
-   border-radius: 5px;
-   padding:20px;
-   margin-left: 20%;
-   margin-top: 3%;
-}
+   .parent{
+    position: absolute;
+     width:60%;
+     height:100%;
+     background-color: #fff;
+     margin:auto;
+     border-radius: 5px;
+     padding:40px;
+     margin-left: 20%;
+     margin-top: 3%;
+  }
 
 .parent a{
   font-size: 1.3em;
@@ -130,6 +130,11 @@ table{
 }
 
 .tasksubmitway{
+  margin: 10px;
+  font-size: 25px;
+}
+
+.tasklevel{
   margin: 10px;
   font-size: 25px;
 }

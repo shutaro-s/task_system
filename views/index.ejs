@@ -12,6 +12,7 @@
     <header class="header-6">
         <div class="box box-logo">
             <div class="header-name"><%= studentName%></div>
+            <p class="today"><%= today%></p>
             <h2>TaskReminder</h2>
             <a href="/logout" class="button-2">ログアウト</a>
         </div>
@@ -42,7 +43,8 @@
     <br>
         <div class="mytask">
             <h1>自分の課題一覧</h1>
-            <a href="/new/task">課題追加</a> <small>※登録した授業で課題追加できます</small>
+            <a href="/new/task">課題追加</a> <small>※登録した授業で課題追加できます　　　　</small>
+            優先度：低　<b>中</b>　<b style="color: rgb(48, 78, 247);">高</b>　<b style="color: red;">最優先</b>
         </div>
         <table>
             <tr>
@@ -56,9 +58,23 @@
             </tr>
             <% for(var i = 0; i < tasks.length; i++){ %>
                 <tr>
-                    <td><%= tasks[i].deadline %></td>
+                    <%if(tasks[i].weekdiff <= 0 && tasks[i].weekdiff > -6){%>
+                        <td style="background: rgb(136, 154, 255); font-weight: bold;"><%= tasks[i].deadline %></td>
+                    <%} else if(tasks[i].daydiff <= 0){%>
+                        <td style="background: rgb(245, 143, 143); font-weight: bold;"><%= tasks[i].deadline %></td>
+                    <%} else{%>
+                        <td><%= tasks[i].deadline %></td>
+                    <%}%>
                     <td><%= tasks[i].className %></td>
-                    <td><%= tasks[i].contents %></td>
+                    <%if(tasks[i].level == 0){%>
+                        <td><%= tasks[i].contents %></td>
+                    <%} else if(tasks[i].level == 1){%>
+                        <td style="font-weight: bold;"><%= tasks[i].contents %></td>
+                    <%} else if(tasks[i].level == 2){%>
+                        <td style="color: rgb(48, 78, 247); font-weight: bold;"><%= tasks[i].contents %></td>
+                    <%} else if(tasks[i].level == 3){%>
+                        <td style="color: red; font-weight: bold;"><%= tasks[i].contents %></td>
+                    <%}%>
                     <% if(tasks[i].submitway == "コースパワー"){ %>
                         <td><a href="https://cp.aim.aoyama.ac.jp/" target="_blank"><%= tasks[i].submitway %></a></td>
                     <% }else{ %>
@@ -68,7 +84,7 @@
                     <td>
                         <form action="/delete/task" method="post">
                             <input type="hidden" name="taskId" value="<%= tasks[i].id %>">
-                            <input type="submit" value="削除">
+                            <input type="submit" value="完了">
                         </form>
                     </td>
                     <td>
