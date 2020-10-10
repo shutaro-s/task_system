@@ -6,11 +6,14 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const domain = require('express-domain-middleware');
 const crypto = require("crypto");
+const sendmail = require('sendmail')();
 const app = express();
 
 var PORT = process.env.PORT || 3000;
 var http = require('http');
 var server = http.Server(app);
+
+var count = 0;
 
 app.use(express.static('client'));
 
@@ -66,9 +69,11 @@ if (err) {
 
 //ログイン画面&認証処理
 app.get('/', (req, res) => {
+  count = 0;
   res.render('login.ejs');
 });
 app.get('/login', (req, res) => {
+  count = 0;
   res.render('login.ejs');
 });
 app.post('/login', (req, res) => {
@@ -262,6 +267,20 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
 });
 //パスワード忘れたとき用更新処理
 app.post('/remake/password', (req, res) => {
+  var newpass = Math.random().toString(32).substring(2);
+  var mailtext = 'パスワードを初期化しました．新しいパスワード：' + String(newpass);
+  var mailto = 'a57' + String(req.body.studentId) + '@aoyama.jp';
+  if(count == 0){
+    sendmail({
+      from: 'a5717040@aoyama.jp',
+      to: mailto,
+      subject: 'パスワード初期化',
+      text: mailtext,
+    }, function(err, reply) {
+      console.log(err && err.stack);
+  });
+  }
+  count++;
   //パスワードをハッシュ化する
   var pass2 = req.body.studentId;
   var sha5122 = crypto.createHash('sha512');
