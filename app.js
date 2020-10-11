@@ -180,6 +180,16 @@ app.post('/create/:about', isAuthenticated, (req, res) => {
         res.redirect('/index');
       }
     );
+  }else if (req.params.about == "classname") {
+    //データベース追加処理
+    connection.query(
+      'INSERT INTO testclassname (name) VALUES(?)',
+      [req.body.classnameName],
+      (error, results) => {
+        //indexへリダイレクト
+        res.redirect('/classname');
+      }
+    );
   }
 });
 
@@ -228,6 +238,16 @@ app.post('/delete/:about', isAuthenticated, (req, res) => {
         res.redirect('/index');
       }
     );
+  }else if (req.params.about == "classname") {
+    //データベース削除処理
+    connection.query(
+      'DELETE FROM testclassname WHERE id = ?',
+      [req.body.classnameId],
+      (error, results) => {
+        //indexへリダイレクト
+        res.redirect('/classname');
+      }
+    );
   }
 });
 
@@ -269,6 +289,16 @@ app.post('/update/:about', isAuthenticated, (req, res) => {
       (error, results) => {
         //indexへリダイレクト
         res.redirect('/logout');
+      }
+    );
+  }else if(req.params.about == "classname"){
+    //データベース更新処理
+    connection.query(
+      'UPDATE testclassname SET name = ?, update_at = NOW() WHERE id = ?',
+      [req.body.classnameName, req.body.classnameId],
+      (error, results) => {
+        //classname.indexへリダイレクト
+        res.redirect('/classname');
       }
     );
   }
@@ -326,6 +356,16 @@ app.get('/edit/password', isAuthenticated, (req, res) => {
 /*---------------学生管理---------------*/
 
 /*---------------授業管理---------------*/
+
+//管理者側の授業管理画面
+app.get('/classname', isAuthenticated, (req, res) => {
+  connection.query(
+    'SELECT id, name FROM testclassname',
+    (error, results) => {
+      res.render('classnames/index.ejs', {classnames: results, studentName: req.session.studentName});
+    }
+  );
+});
 
 //一覧表示
 app.get('/class', isAuthenticated, (req, res) => {
@@ -403,10 +443,9 @@ app.get('/new/:about', isAuthenticated, (req, res) => {
     res.render('students/new.ejs');
   } else if(req.params.about == "class"){
     connection.query(
-      'SELECT id, name FROM testclass WHERE student_id = ?',
-      [req.session.studentId],
+      'SELECT id, name FROM testclassname',
       (error, results) => {
-        res.render('classes/new.ejs', {classes: results});
+        res.render('classes/new.ejs', {classnames: results});
       }
     );
   } else if(req.params.about == "task"){
@@ -417,6 +456,8 @@ app.get('/new/:about', isAuthenticated, (req, res) => {
         res.render('tasks/new.ejs', {classes: results});
       }
     );
+  } else if(req.params.about == "classname"){
+    res.render('classnames/new.ejs');
   }
 });
 //編集画面
@@ -442,6 +483,16 @@ app.post('/edit/:about', isAuthenticated, (req, res) => {
 
 //チャット
 app.get('/chat', isAuthenticated, (req, res) => {
-  res.render('chat.ejs', {name: req.session.studentName});
+  connection.query(
+    'SELECT * FROM testclass WHERE student_id = ? ORDER BY id',
+    [req.session.studentId],
+    (error, results) => {
+      res.render('chats/index.ejs', {classes: results, studentName: req.session.studentName});
+    }
+  );
 });
+app.get('/chat/:class/:id', isAuthenticated, (req, res) => {
+  res.render('chats/chat.ejs', {id: req.session.studentId, name: req.session.studentName, className: req.params.class, classId: req.params.id});
+});
+
 /*---------------共通ページ---------------*/

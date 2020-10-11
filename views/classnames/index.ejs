@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/class.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <title>作成授業一覧</title>
+</head>
+<body>
+  <header class="header-6">
+    <div class="box box-logo">
+        <div class="header-name"><%= studentName%></div>
+        <h2>TaskReminder</h2>
+    </div>
+    <div class="box box-nav">
+        <ul class="inner-nav">
+            <% if(studentName == "test"){ %>
+                <li class="menu">
+                    <p class="en"><a href="/student">学生管理</a></p>
+                    <p class="jp">student</p>
+                </li>
+            <% } %>
+            <li class="menu">
+                <p class="en"><a href="/new/class">授業追加</a></p>
+                <p class="jp">class</p>
+            </li>
+            <li class="menu">
+                <p class="en"><a href="/new/task">課題追加</a></p>
+                <p class="jp">task</p>
+            </li>
+            <li class="menu">
+                <p class="en"><a href="/index">トップに戻る</a></p>
+                <p class="jp">top</p>
+            </li>
+        </ul>
+    </div>
+</header>
+<p class="marge"></p>
+<br>
+<div class="class">
+  <h1>授業一覧</h1>
+  <a href="/new/classname">授業新規作成</a>
+</div>
+  <ul class="cp_list">
+    <% for(var i = 0; i < classnames.length; i++){ %>
+      <li>
+        <%= classnames[i].name %>
+        <form action="/delete/classname" method="post">
+            <input type="hidden" name="classnameId" value="<%= classnames[i].id %>">
+            <input type="submit" value="削除">
+        </form>
+        <form action="/update/classname" method="post">
+            <input type="text" name="classnameName" required>
+            <input type="hidden" name="classnameId" value="<%= classnames[i].id %>">
+            <input type="submit" value="名前を変更する">
+        </form>
+      </li>
+    <% } %>
+  </ul>
+</body>
+</html>

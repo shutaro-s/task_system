@@ -14,20 +14,9 @@
                 <p>授業名</p>
                 <select name="className">
                     <option value=0>選択してください</option>
-                    <option value="確率・統計">確率・統計</option>
-                    <option value="品質管理技術">品質管理技術</option>
-                    <option value="分析技術実験">分析技術実験</option>
-                    <option value="システム工学基礎">システム工学基礎</option>
-                    <option value="多変量解析Ⅰ">多変量解析Ⅰ</option>
-                    <option value="IE技術">IE技術</option>
-                    <option value="組み合わせ最適化">組み合わせ最適化</option>
-                    <option value="計算機実習Ⅱ">計算機実習Ⅱ</option>
-                    <option value="コーポレートファイナンス">コーポレートファイナンス</option>
-                    <option value="地理情報処理">地理情報処理</option>
-                    <option value="企業経済学">企業経済学</option>
-                    <option value="モデル化技術実験">モデル化技術実験</option>
-                    <option value="生産システム設計">生産システム設計</option>
-                    <option value="経営管理論">経営管理論</option>
+                    <% for(var i = 0; i < classnames.length; i++){%>
+                        <option value=<%= classnames[i].name %>><%= classnames[i].name %></option>
+                    <%}%>
                   </select>
             </div>
             <input type="submit" value="登録">
